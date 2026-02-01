@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Valentine 💖</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  body.party {
+    animation: bgDance 1s infinite alternate;
+  }
+
+  @keyframes bgDance {
+    0% { background: #ff758c; }
+    50% { background: #ff9a9e; }
+    100% { background: #ff4d6d; }
+  }
+
+  .slide {
+    display: none;
+    text-align: center;
+    color: white;
+    z-index: 2;
+  }
+
+  .active {
+    display: block;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+  }
+
+  button {
+    font-size: 1.5rem;
+    padding: 14px 34px;
+    margin: 15px;
+    border-radius: 40px;
+    border: none;
+  }
+
+  #yesBtn {
+    background: #ff2e63;
+    color: white;
+    cursor: pointer;
+  }
+
+  #noBtn {
+    background: white;
+    color: #ff2e63;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 24px;
+    animation: floatUp linear forwards;
+    z-index: 1;
+  }
+
+  @keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-120vh); opacity: 0; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- Slide 1 -->
+<div class="slide active" id="slide1">
+  <h1>Hey babe 💕</h1>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide" id="slide2">
+  <h1 id="typing"></h1>
+  <div>
+    <button id="yesBtn">Yes 😍</button>
+    <button id="noBtn">No</button>
+  </div>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide" id="slide3">
+  <h1>🎉 Congratulations 🎉</h1>
+  <h2>
+    You are officially selected<br><br>
+    to be <b>loved, teased, distracted</b><br>
+    and <b>professionally annoyed</b><br><br>
+    by <b>Vippu 😈💖</b><br><br>
+    for the whole year.
+  </h2>
+</div>
+
+<script>
+  const slide1 = document.getElementById("slide1");
+  const slide2 = document.getElementById("slide2");
+  const slide3 = document.getElementById("slide3");
+  const typing = document.getElementById("typing");
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+
+  // Move to slide 2
+  setTimeout(() => {
+    slide1.classList.remove("active");
+    slide2.classList.add("active");
+    typeText();
+  }, 2500);
+
+  // Typewriter
+  const text = "Will you be my Valentine? 💘";
+  let i = 0;
+
+  function typeText() {
+    const interval = setInterval(() => {
+      typing.textContent += text[i];
+      i++;
+      if (i === text.length) {
+        clearInterval(interval);
+        setTimeout(startParty, 5000); // calm 5s
+      }
+    }, 120);
+  }
+
+  function startParty() {
+    document.body.classList.add("party");
+    noBtn.textContent = "Nice try 😏";
+
+    setInterval(() => {
+      noBtn.style.position = "absolute";
+      noBtn.style.left = Math.random() * (window.innerWidth - 140) + "px";
+      noBtn.style.top = Math.random() * (window.innerHeight - 80) + "px";
+    }, 200);
+  }
+
+  yesBtn.onclick = () => {
+    slide2.classList.remove("active");
+    slide3.classList.add("active");
+  };
+
+  // Hearts
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.textContent = "💖";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = Math.random() * 3 + 4 + "s";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 7000);
+  }, 400);
+</script>
+
+</body>
+</html>
